@@ -1,5 +1,5 @@
 import { resetGame } from "./resetGame";
-import { updateStatus } from "./components/states";
+import { state, updateStatus } from "./components/states";
 
 const playerX: HTMLElement = document.getElementById("playerX")!;
 const playerO: HTMLElement = document.getElementById("playerO")!;
@@ -67,12 +67,14 @@ export function checkWin(boxs: HTMLDivElement[], playerIcon: any) {
       condition[0][0] !== ""
     ) {
       const winner = condition[0][0];
-      if (winner === playerIcon.player1) {
-        playerX.innerHTML = String(+playerX.innerHTML + 1);
-        updateStatus("Player X : WIN");
-      } else if (winner === playerIcon.player2) {
-        playerO.innerHTML = String(+playerO.innerHTML + 1);
-        updateStatus("Player O : WIN");
+      if (state.status === '') { 
+        if (winner === playerIcon.player1) {
+          playerX.innerHTML = String(+playerX.innerHTML + 1);
+          updateStatus("Player X : WIN");
+        } else if (winner === playerIcon.player2) {
+          playerO.innerHTML = String(+playerO.innerHTML + 1);
+          updateStatus("Player O : WIN");
+        }
       }
 
       // Highlight the winning condition

@@ -1,6 +1,14 @@
 .container {
     text-align: center;
-    .users{
+    #two-players{
+        background-color: black;
+        color: white;
+    }
+    #play-against-bot{
+        background-color: white;
+        color: black;
+    }
+    .score{
         display: flex;
         justify-content: center;
         gap: 8rem;
