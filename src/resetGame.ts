@@ -8,7 +8,9 @@ export function resetGame(boxs: HTMLDivElement[]) {
       box.style.color = "";
     });
     updateCounter(0);
-    alert(state.status);
+    if (state.status !== '') { 
+      alert(state.status);
+    }
     updateStatus("");
   }, 20);
 }
