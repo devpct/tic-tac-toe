@@ -1,88 +1,207 @@
-import "./style.scss";
-import { checkWin } from "./checkWin";
-import { resetGame } from "./resetGame";
-import { state, updateCounter, updateStatus } from "./components/states";
 import { findBestMove } from "./components/minimax";
 
 const boxs: HTMLDivElement[] = Array.from(document.querySelectorAll("td"))!;
-const twoPlayersButton: HTMLButtonElement = document.getElementById("two-players") as HTMLButtonElement;
-const playAgainstBotButton: HTMLButtonElement = document.getElementById("play-against-bot") as HTMLButtonElement;
+const twoPlayersButton: HTMLButtonElement = document.getElementById(
+  "two-players"
+) as HTMLButtonElement;
+const playAgainstBotButton: HTMLButtonElement = document.getElementById(
+  "play-against-bot"
+) as HTMLButtonElement;
+const playerX: HTMLElement = document.getElementById("playerX")!;
+const playerO: HTMLElement = document.getElementById("playerO")!;
+
 let gameMode: string = "two-players";
 let botMoving: boolean = false;
 
 enum playerIcon {
-  player1 = "X",
-  player2 = "O",
+  player1 = "/images/multiplied.png",
+  player2 = "/images/circle.png",
 }
 
 class Render {
-  constructor() {
-    this.initializeGame();
-    this.setupModeSelection();
-  }
+  private counter: number = 0;
+  private status: string = "";
 
-  initializeGame() {
+  private initializeGame() {
     boxs.forEach((box) =>
       box.addEventListener("click", () => {
-        if (box.innerHTML === "" && state.status === "" && !botMoving) {
+        if (box.innerHTML === "" && this.status === "" && !botMoving) {
           this.handleBoxClick(box);
         }
       })
     );
   }
 
-  handleBoxClick(box: HTMLDivElement) {
-    box.innerHTML =
-      state.counter % 2 === 0 ? playerIcon.player1 : playerIcon.player2;
-    updateCounter(state.counter + 1);
-    checkWin(boxs, playerIcon);
+  private handleBoxClick(box: HTMLDivElement) {
+    const icon = document.createElement("img");
+    if (this.counter % 2 === 0) {
+      icon.src = playerIcon.player1;
+      box.style.backgroundColor = "#dc685a";
+      icon.classList.add("X");
+    } else {
+      icon.src = playerIcon.player2;
+      box.style.backgroundColor = "#ecaf4f";
+      icon.classList.add("O");
+    }
+    box.appendChild(icon);
+    this.counter++;
+    this.checkWin(boxs);
     this.checkEqual();
 
-    if (state.status === "" && state.counter % 2 !== 0 && gameMode === "play-against-bot") {
+    if (
+      this.status === "" &&
+      this.counter % 2 !== 0 &&
+      gameMode === "play-against-bot"
+    ) {
       // If the game is not over and it's the bot's turn
       botMoving = true;
       setTimeout(() => this.handleBotMove(), 100);
     }
   }
 
-  handleBotMove() {
-    const bestMove = findBestMove(boxs, playerIcon);
+  private handleBotMove() {
+    const bestMove = findBestMove(boxs ,playerIcon);
+    const icon = document.createElement("img");
     if (bestMove !== -1) {
       const box = boxs[bestMove];
-      box.innerHTML = playerIcon.player2; // Bot is always "O"
-      updateCounter(state.counter + 1);
-      checkWin(boxs, playerIcon);
+      icon.src = playerIcon.player2;
+      box.style.backgroundColor = "#ecaf4f";
+      icon.classList.add("O");
+      box.appendChild(icon);
+      this.counter++;
+      this.checkWin(boxs);
       this.checkEqual();
     }
     botMoving = false;
   }
 
-  checkEqual() {
-    if (state.counter === 9 && state.status === "") {
-      updateStatus("Equal");
-      resetGame(boxs);
+  private checkEqual() {
+    if (this.counter === 9 && this.status === "") {
+      this.status = "Equal";
+      this.resetGame(boxs);
     }
   }
 
-  setupModeSelection() {
+  private setupModeSelection() {
     twoPlayersButton.addEventListener("click", () => {
       gameMode = "two-players";
-      twoPlayersButton.style.backgroundColor = 'black'
-      twoPlayersButton.style.color = 'white'
-      playAgainstBotButton.style.backgroundColor = 'white'
-      playAgainstBotButton.style.color = 'black'
-      resetGame(boxs);
+      twoPlayersButton.className = "button-show";
+      playAgainstBotButton.className = "button-default";
+      this.resetGame(boxs);
     });
 
     playAgainstBotButton.addEventListener("click", () => {
       gameMode = "play-against-bot";
-      playAgainstBotButton.style.backgroundColor = 'black'
-      playAgainstBotButton.style.color = 'white'
-      twoPlayersButton.style.backgroundColor = 'white'
-      twoPlayersButton.style.color = 'black'
-      resetGame(boxs);
+      playAgainstBotButton.className = "button-show";
+      twoPlayersButton.className = "button-default";
+      this.resetGame(boxs);
     });
+  }
+
+  public startGame() {
+    this.initializeGame();
+    this.setupModeSelection();
+  }
+
+  private checkWin(boxs: HTMLDivElement[]) {
+    const winConditions: (string | number)[][][] = [
+      [
+        ["", 0],
+        ["", 1],
+        ["", 2],
+      ],
+      [
+        ["", 3],
+        ["", 4],
+        ["", 5],
+      ],
+      [
+        ["", 6],
+        ["", 7],
+        ["", 8],
+      ],
+      [
+        ["", 0],
+        ["", 3],
+        ["", 6],
+      ],
+      [
+        ["", 1],
+        ["", 4],
+        ["", 7],
+      ],
+      [
+        ["", 2],
+        ["", 5],
+        ["", 8],
+      ],
+      [
+        ["", 0],
+        ["", 4],
+        ["", 8],
+      ],
+      [
+        ["", 2],
+        ["", 4],
+        ["", 6],
+      ],
+    ];
+
+    // Update win conditions
+    winConditions.forEach((condition) => {
+      condition.forEach((cond) => {
+        const box = boxs[cond[1] as number];
+
+        if (box.innerHTML !== "") {
+          cond[0] = String((box.firstChild as Element)?.getAttribute("class"));
+        }
+      });
+    });
+
+    // Check win condition
+    winConditions.forEach((condition) => {
+      if (
+        condition[0][0] === condition[1][0] &&
+        condition[1][0] === condition[2][0] &&
+        condition[0][0] !== ""
+      ) {
+        const winner = condition[0][0];
+        if (this.status === "") {
+          if (winner === "X") {
+            playerX.innerHTML = String(+playerX.innerHTML + 1);
+            this.status = "Player X : WIN";
+          } else if (winner === "O") {
+            playerO.innerHTML = String(+playerO.innerHTML + 1);
+            this.status = "Player O : WIN";
+          }
+        }
+
+        // Highlight the winning condition
+        condition.forEach((cond) => {
+          const position = boxs[cond[1] as number];
+          position.style.backgroundColor = "#424769";
+        });
+
+        this.resetGame(boxs);
+      }
+    });
+  }
+
+  private resetGame(boxs: HTMLDivElement[]) {
+    setTimeout(() => {
+      boxs.forEach((box) => {
+        box.innerHTML = "";
+        box.style.backgroundColor = "";
+        box.style.color = "";
+      });
+      if (this.status !== "") {
+        alert(this.status);
+      }
+      this.counter = 0;
+      this.status = "";
+    }, 20);
   }
 }
 
-new Render();
+const tictactoe = new Render();
+tictactoe.startGame();

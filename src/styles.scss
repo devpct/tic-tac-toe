@@ -1,0 +1,58 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    background: linear-gradient(60deg, #29323c 0%, #485563 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+    button {
+        all: unset;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        font-weight: bold;
+    }
+    .button-show {
+        background-color: rgb(215, 215, 215);
+        box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    }
+    .button-default {
+        background-color: #687584;
+    }
+    .container {
+        padding: 0 40rem;
+        text-align: center;
+        .score{
+        display: flex;
+        justify-content: center;
+        gap: 8rem;
+    }
+    .table{
+        width: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        tr{
+            td{
+                -webkit-backdrop-filter: blur(5px);
+                backdrop-filter: blur(5px);
+                background: rgba(255, 255, 255, 0.2);
+                cursor: pointer;
+                width: 15.5rem;
+                height: 15.5rem;
+            }
+        }
+    }
+}
+
+}
+
+

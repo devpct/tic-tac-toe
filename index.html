@@ -5,35 +5,38 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tic Tac Toe</title>
+    <link rel="stylesheet" type="text/css" href="./src/styles.scss" />
   </head>
   <body>
     <div class="container">
       <h1>Tic Tac Toe</h1>
       <div id="mode-selection">
-        <button id="two-players">Two Players</button>
-        <button id="play-against-bot">Play Against Bot</button>
+        <button id="two-players" class="button-show">Two Players</button>
+        <button id="play-against-bot" class="button-default">Play Against Bot</button>
       </div>
       <div class="score">
         <h1>Player X : <span id="playerX">0</span></h1>
         <h1>Player O : <span id="playerO">0</span></h1>
       </div>
-      <table class="table">
-        <tr>
-          <td data-index="0"></td>
-          <td data-index="1"></td>
-          <td data-index="2"></td>
-        </tr>
-        <tr>
-          <td data-index="3"></td>
-          <td data-index="4"></td>
-          <td data-index="5"></td>
-        </tr>
-        <tr>
-          <td data-index="6"></td>
-          <td data-index="7"></td>
-          <td data-index="8"></td>
-        </tr>
-      </table>
+      <div class="test">
+        <table class="table">
+          <tr>
+            <td data-index="0"></td>
+            <td data-index="1"></td>
+            <td data-index="2"></td>
+          </tr>
+          <tr>
+            <td data-index="3"></td>
+            <td data-index="4"></td>
+            <td data-index="5"></td>
+          </tr>
+          <tr>
+            <td data-index="6"></td>
+            <td data-index="7"></td>
+            <td data-index="8"></td>
+          </tr>
+        </table>
+      </div>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
