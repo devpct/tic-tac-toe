@@ -34,6 +34,7 @@ class Render {
 
   private handleBoxClick(box: HTMLDivElement) {
     const icon = document.createElement("img");
+    icon.style.width = '50%'
     if (this.counter % 2 === 0) {
       icon.src = playerIcon.player1;
       box.style.backgroundColor = "#dc685a";

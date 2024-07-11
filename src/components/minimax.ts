@@ -63,4 +63,3 @@ export function findBestMove(board: HTMLDivElement[], playerIcon: any): number {
 
   return bestMove;
 }
-

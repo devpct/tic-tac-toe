@@ -1,16 +1,12 @@
 html, body {
     height: 100%;
     margin: 0;
+    overflow: hidden;
 }
 
 body {
     background: linear-gradient(60deg, #29323c 0%, #485563 100%);
-    background-repeat: no-repeat;
-    background-size: cover;
     color: white;
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
     button {
@@ -28,31 +24,103 @@ body {
         background-color: #687584;
     }
     .container {
-        padding: 0 40rem;
+        margin: auto;
+        padding: 2rem;
         text-align: center;
         .score{
         display: flex;
         justify-content: center;
         gap: 8rem;
+        font-size: 1.7rem;
+        font-weight: bold;
     }
     .table{
-        width: 100%;
+        // margin: auto ;
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        
         tr{
             td{
                 -webkit-backdrop-filter: blur(5px);
                 backdrop-filter: blur(5px);
                 background: rgba(255, 255, 255, 0.2);
                 cursor: pointer;
-                width: 15.5rem;
-                height: 15.5rem;
+                width: 14rem;
+                height: 13rem;
             }
         }
     }
 }
+}
 
+@media screen and (min-width: 680px) {
+    .table{
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .score {
+        margin-top: 1.5rem;
+        font-size: 0.8rem;
+    }
+
+    .table{
+        margin-top: 1.5rem;
+        td {
+            height: 12rem !important;
+        }
+    }
 }
 
 
+@media screen and (max-width: 570px) {
+    .score {
+        margin-top: 1.5rem;
+        font-size: 0.7rem;
+    }
+
+    .table{
+        margin-top: 1.5rem;
+        td {
+            height: 10rem !important;
+        }
+    }
+}
+
+
+@media screen and (max-width: 500px) {
+    .score {
+        margin-top: 1.5rem;
+        font-size: 1rem !important;
+        gap: 7rem !important;
+    }
+
+    .table{
+        margin-top: 1.5rem;
+        td {
+            height: 6rem !important;
+        }
+    }
+}
+
+@media screen and (max-width: 320px) {    
+    .container {
+        h1 {
+            padding: 0;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        .score {
+            font-size: 0.8rem !important;
+        }
+        .table{
+            margin-top: 0.5rem;
+            td {
+                padding-top: 0.5rem;
+                height: 4rem !important;
+            }
+        }
+    }
+}
