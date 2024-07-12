@@ -63,6 +63,7 @@ class Render {
   private handleBotMove() {
     const bestMove = findBestMove(boxs ,playerIcon);
     const icon = document.createElement("img");
+    icon.style.width = '50%'
     if (bestMove !== -1) {
       const box = boxs[bestMove];
       icon.src = playerIcon.player2;

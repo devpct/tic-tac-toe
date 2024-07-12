@@ -54,13 +54,25 @@ body {
 }
 }
 
-@media screen and (min-width: 680px) {
+@media screen and (max-width: 1500px) {
+    h1 {
+        padding: 0;
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+    }
+    td {
+        height: 7.5rem !important;
+        width: 10rem !important;
+    }
+}
+
+@media screen and (min-width: 600px) {
     .table{
         margin: auto;
     }
 }
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: 600px) {
     .score {
         margin-top: 1.5rem;
         font-size: 0.8rem;
@@ -84,7 +96,7 @@ body {
     .table{
         margin-top: 1.5rem;
         td {
-            height: 10rem !important;
+            height: 6.7rem !important;
         }
     }
 }
