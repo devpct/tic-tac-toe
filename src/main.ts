@@ -200,6 +200,9 @@ class Render {
         alert(this.status);
       }
       this.counter = 0;
+      if (this.status === "Player O : WIN") {
+        this.counter++
+      }
       this.status = "";
     }, 20);
   }
